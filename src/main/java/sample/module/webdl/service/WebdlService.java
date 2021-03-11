@@ -94,21 +94,41 @@ public class WebdlService {
         //System.out.println(jsonTxt);
         try {
             JSONObject j1= (JSONObject)new JSONParser().parse(jsonTxt);
+            System.out.println(j1);
             JSONObject j2=(JSONObject)j1.get("streamingData");
             JSONArray adaptiveFormats=(JSONArray)j2.get("adaptiveFormats");
-
-
+            //전체 내역 출력
+            System.out.println(adaptiveFormats.toString());
+            JSONObject object=null;
             for(int i=0;i<adaptiveFormats.size();i++)
             {
-
-                String mimeType=((JSONObject)adaptiveFormats.get(i)).get("mimeType").toString();
+                object=(JSONObject)adaptiveFormats.get(i);
+                String mimeType=object.get("mimeType").toString();
 
                 if(mimeType.contains("video"))
                 {
                     YVideo video=new YVideo();
-                    String qualityLabel=((JSONObject)adaptiveFormats.get(i)).get("qualityLabel").toString();
-                    String fps=((JSONObject)adaptiveFormats.get(i)).get("fps").toString();
-                    String downloadUrl=decodeURL(((JSONObject)adaptiveFormats.get(i)).get("url").toString());
+                    String qualityLabel=object.get("qualityLabel").toString();
+                    String fps=object.get("fps").toString();
+                    String downloadUrl="";
+                    //한 번에 url을 찾지 못하였을경우
+                    if(object.get("url")==null)
+                    {
+                        downloadUrl=decodeURL(
+                                ((JSONObject)adaptiveFormats.get(i))
+                                        .get("signatureCipher").toString());
+                        int lastindex=downloadUrl.indexOf("https");
+                        String step1=downloadUrl.substring(lastindex,downloadUrl.length());
+
+                        lastindex=step1.indexOf("\"");
+                        System.out.println(lastindex);
+                        downloadUrl=decodeURL(step1.substring(0,lastindex));
+                        System.out.println(downloadUrl);
+                    }else
+                    {
+                        downloadUrl=decodeURL(object.get("url").toString());
+                    }
+
                     JSONObject contentJson=null;
                     int contentsSize=0;
                     if(((JSONObject)adaptiveFormats.get(i)).get("contentLength")!=null)
@@ -135,10 +155,24 @@ public class WebdlService {
                 }
                 else if(mimeType.contains("audio"))
                 {
+                    object=(JSONObject)adaptiveFormats.get(i);
                     YAudio audio=new YAudio();
-                    String audioChannels=((JSONObject)adaptiveFormats.get(i)).get("audioChannels").toString();
-                    String audioSampleRate=((JSONObject)adaptiveFormats.get(i)).get("audioSampleRate").toString();
-                    String downloadUrl=decodeURL(((JSONObject)adaptiveFormats.get(i)).get("url").toString());
+                    String audioChannels=object.get("audioChannels").toString();
+                    String audioSampleRate=object.get("audioSampleRate").toString();
+                    String downloadUrl="";
+                    if(object.get("url")==null)
+                    {
+                        downloadUrl=decodeURL(
+                                ((JSONObject)adaptiveFormats.get(i))
+                                        .get("signatureCipher").toString());
+                        int lastindex=downloadUrl.lastIndexOf("url=h");
+                        downloadUrl=decodeURL(downloadUrl.substring(lastindex,downloadUrl.length()).replace("url=",""));
+                        System.out.println(downloadUrl);
+                    }else
+                    {
+                        downloadUrl=decodeURL(object.get("url").toString());
+                    }
+
                     JSONObject contentJson=null;
                     int contentsSize=0;
                     if(((JSONObject)adaptiveFormats.get(i)).get("contentLength")!=null)

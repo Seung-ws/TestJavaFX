@@ -11,24 +11,24 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="625.0" text="untitled" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="625.0" text="untitled" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="598.0">
          <children>
-            <TabPane prefHeight="377.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="406.0" prefWidth="626.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Untitled Tab 1">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="622.0">
                            <children>
                               <TextArea fx:id="webdl_urlarea" layoutX="14.0" layoutY="12.0" prefHeight="320.0" prefWidth="226.0" />
                               <TextField fx:id="webdl_pathtext" layoutX="288.0" layoutY="60.0" prefHeight="22.0" prefWidth="227.0" />
-                              <Button fx:id="webdl_btnSelectPath" layoutX="524.0" layoutY="60.0" mnemonicParsing="false" text="Button" />
+                              <Button fx:id="webdl_btnSelectPath" layoutX="524.0" layoutY="60.0" mnemonicParsing="false" text="..." />
                               <ChoiceBox layoutX="287.0" layoutY="163.0" prefWidth="150.0" />
                               <ChoiceBox layoutX="287.0" layoutY="230.0" prefWidth="150.0" />
-                              <ProgressBar fx:id="webdl_progressbar" layoutX="289.0" layoutY="14.0" prefHeight="18.0" prefWidth="286.0" progress="0.0" />
+                              <ProgressBar fx:id="webdl_progressbar" layoutX="289.0" layoutY="14.0" prefHeight="18.0" prefWidth="259.0" progress="0.0" />
                               <CheckBox fx:id="webdl_autoselect" layoutX="288.0" layoutY="117.0" mnemonicParsing="false" text="CheckBox" />
-                              <Button fx:id="webdl_btnDownload" layoutX="394.0" layoutY="310.0" mnemonicParsing="false" text="Button" />
+                              <Button fx:id="webdl_btnDownload" layoutX="383.0" layoutY="309.0" mnemonicParsing="false" text="Download" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

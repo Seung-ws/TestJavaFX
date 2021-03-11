@@ -77,16 +77,19 @@ public class Controller  implements Initializable {
 
                 }
             });
-
+            //다운로드 버튼을 설정할껀데
             webdl_btnDownload.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-
+                    //진행중일땐 다운로드버튼을 비활성화한다.
                     webdl_btnDownload.setDisable(true);
+
                     File path=new File(webdl_pathtext.getText());
+                    //폴더경로를 탐색하고 없으면 만든다.
                     if(!path.exists())path.mkdirs();
-                    //경로가 있다면
+                    //폴더 경로가 있다면
                     if(path.exists()) {
+                        //textarea에 url 을 큐로 수집한다.
                         String[] str = webdl_urlarea.getText().split("\n");
                         Queue<String> queue = new LinkedList<String>();
                         for (String data : str) {
@@ -94,9 +97,8 @@ public class Controller  implements Initializable {
                             {
                                 queue.add(data.trim());
                             }
-
-
                         }
+
                         fileProgress = queue.size();
                         worker = new Thread(new downloader(queue, path.getPath()));
                         worker.start();
